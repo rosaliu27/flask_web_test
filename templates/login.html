@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Lab：使用者登入{% endblock %}
+
+{% block flash %}
+<div class = 'alert alert-warning'>
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block main %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class = 'alert alert-warning'>
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+<div class="container" style="margin: 4em auto">
+<div class="row">
+<div class="col">
+
+  <h1>使用者登入</h1>
+
+<form method="post" action="/login">
+
+    <div class="mb-3">
+    <label for="user_id" class="form-label">user_id:</label>
+      <input type="text" class="form-control" id="user_id" name="user_id" placeholder="user_id">
+      <small class="form-text">提示： Me</small>
+    </div>
+  
+  <div class="mb-3">
+    <label for="password" class="form-label">password:</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="password">
+      <small class="form-text">提示： myself</small>
+    </div>
+    <a class="nav-link" href="/register">還沒有帳號?前往註冊</a>
+  
+    <div class="col-3 mx-auto">
+      <button type="submit" class="btn btn-primary">登入</button>
+    </div>
+  
+</form>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

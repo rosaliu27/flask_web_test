@@ -1,0 +1,180 @@
+<!-- 宣告我們要套用模板 -->
+{% extends "base.html" %}
+
+{% block title %}Lab照相{% endblock %}
+
+{% block flash %}
+<div class = 'alert alert-warning'>
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+{% block main %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class = 'alert alert-warning'>
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+    <style>
+        /* *, *::before, *::after {
+          box-sizing: border-box;
+        }
+        html, body, .container {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        } */
+        body {
+          background: #F5F5F5;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "微軟正黑體", "Microsoft JhengHei";
+          color: #555;
+        }
+        .container {
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          flex-wrap: wrap;
+          margin-right: auto;
+          margin-left: auto;
+          max-width: 480px;
+        }
+        h1, h6 {
+          margin: 0;
+        }
+        h1 {
+          margin-bottom: 16px;
+          font-size: 28px;
+        }
+        h6 {
+          margin-bottom: 50px;
+          font-weight: normal;
+          font-size: 14px;
+        }
+        h6 a {
+          text-decoration: none;
+          color: #00A7E5;
+        }
+        h6 a:hover {
+          color: #008BBF;
+        }
+        input {
+          display: none;
+        }
+        label {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 32px;
+          padding: 8px 32px;
+          background: #FFF;
+          border: 1px solid #CCC;
+          border-radius: 50px;
+          cursor: pointer;
+          transition: box-shadow .4s ease;
+        }
+        label:hover {
+          box-shadow: 0 10px 20px rgba(0, 0, 0, .19), 0 6px 6px rgba(0, 0, 0, .23);
+        }
+        label span {
+          margin-left: 12px;
+          font-size: 30px;
+        }
+        /* .icon {
+          width: 4vw;
+        } */
+        /* figure {
+          display: block;
+          margin: 0;
+        } */
+        #file_thumbnail {
+          /* display: block; */
+          max-width: 100%;
+          border: 1px solid #CCC;
+        }
+        .info-box {
+          width: 100%;
+        }
+        /* @media screen and (max-width: 480px) {
+          .container {
+            padding-right: 12px;
+            padding-left: 12px;
+          }
+          label span {
+            font-size: 20px;
+          }
+        } */
+      </style>
+    <!-- Google Tag Manager (noscript)-->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PGQ9WQT" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <div class="container" style="margin: 4em auto">
+
+      <!-- <h1>開啟手機鏡頭</h1> -->
+
+      
+      <section class="button-box">
+        <input id="user" type="file" capture="environment" accept="image/*">
+        <label for="user" class="button-primary">
+          
+          <span>開啟手機鏡頭</span>
+        </label>
+      </section>
+
+      <section class="info-box">
+        <!-- <p>檔名：<span id="file_name"></span></p>
+        <p>類型：<span id="file_type"></span></p>
+        <p>大小：<span id="file_size"></span></p>
+        <p>最後更新時間：<span id="file_time"></span></p> -->
+        <p>縮圖：</p>
+        <figure>
+          <img id="file_thumbnail">
+        </figure>
+      </section>
+      
+    </div>
+    
+    
+    <!-- <script>
+        var inputFile = document.getElementById('user');
+        inputFile.addEventListener('change', function(e) {
+
+            var fileData = e.target.files[0]; // 檔案資訊
+            var fileName = fileData.name; // 檔案名稱
+            var fileType = fileData.type; // 檔案類型
+            var fileSize = Math.floor(fileData.size * 0.001); // 檔案大小轉成kb
+            var fileTime = fileData.lastModifiedDate;
+
+            console.log(fileData); // 用開發人員工具可看到資料
+
+            // document.getElementById('file_name').innerText = fileName;
+            // document.getElementById('file_type').innerText = fileType;
+            // document.getElementById('file_size').innerText = fileSize + 'kb';
+            // document.getElementById('file_time').innerText = fileTime;
+            document.getElementById('file_thumbnail').src = URL.createObjectURL(fileData);
+
+    }, false);
+  </script> -->
+  <script>
+    const input = document.getElementById('user');
+    input.addEventListener('change', handleFilesImage, false);
+
+    function handleFilesImage() {
+        const fileData = this.files;
+        const reader = new FileReader();
+        reader.addEventListener('load', file => {
+            const img = document.getElementById('file_thumbnail');
+            img.src = file.target.result;
+        });
+        reader.readAsDataURL(fileData[0]);
+    }
+  </script>
+{% endblock %}
